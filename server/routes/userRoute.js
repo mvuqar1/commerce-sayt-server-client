@@ -1,9 +1,9 @@
-// const router=require("express").Router()
 const express=require("express")
 const router=express.Router()
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken");
-const User=require("../models/userModel")
+const User=require("../models/userModel");
+const authMiddleWare = require("../authMiddleWare/authMiddleWare.jsx");
 
 router.post("/register",async(req,res)=>{
     try {
@@ -34,12 +34,12 @@ router.post("/register",async(req,res)=>{
 
 router.post("/login",async(req,res)=>{
     const user=await User.findOne({email:req.body.email})
+
+    //chech if the user exists
     try {
-        //chech if the user exists
         if (!user){
             throw new Error("User not found")
         }
-
         //compare password
         const validPassword=await bcrypt.compare(
             req.body.password,
@@ -50,18 +50,36 @@ router.post("/login",async(req,res)=>{
         }
 
         //create and assign token
-        const token=jwt.sign({userId:user._id},process.env.jwt_secret)
+        const token=jwt.sign({userId:user._id},process.env.jwt_secret,{expiresIn:"1d"})
         
         //send response
         res.send({
             succes:true,
             message:"User created succesfull",
-            date:token
+            data:token
+        })
+    } catch (error) {
+        console.log(error)
+        res.send({
+            succes:false,
+            message:error.message,
+        })
+    }
+})
+
+router.get("/get-current-user",authMiddleWare,async(req,res)=>{
+    // console.log(req.body.userId)
+    try {
+        const user=await User.findById(req.body.userId)
+        res.send({
+            succes:true,
+            message:"Fetched successfully",
+            data:user
         })
     } catch (error) {
         res.send({
             succes:false,
-            message:error.message,
+            message:error.message
         })
     }
 })
