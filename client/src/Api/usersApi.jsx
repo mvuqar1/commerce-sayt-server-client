@@ -35,7 +35,7 @@ export const LoginUser = async (payload) => {
 }
 export const GetCurrentUser = async () => {
     try {
-        const response = await fetch(`${fetchUrl}/api/user/get-current-user`, fetchInstance);
+        const response = await fetch(`${fetchUrl}/api/user/get-current-user`, fetchInstance());
         const data = await response.json();
         return data;
     } catch (error) {

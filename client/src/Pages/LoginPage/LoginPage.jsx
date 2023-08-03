@@ -1,5 +1,5 @@
 import { Button, Form, Input, message } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import Divider from '../../Components/Divider'
 import { LoginUser } from '../../Api/usersApi';
@@ -14,6 +14,7 @@ export default function LoginPage() {
         message.success(response.message)
         localStorage.setItem("token",response.data)
         navigate("/")
+        console.log("succes")
       }
       else {
         message.error(response.message)
@@ -23,6 +24,13 @@ export default function LoginPage() {
       message.error(error)
     }
   };
+
+  // useEffect(()=>{
+  //   if(token){
+  //     navigate("/")
+  //   }
+
+  // },[])
   return (
     <div className='h-screen flex justify-center items-center bg-slate-400'>
       <div className='bg-white p-5 w-[450px]'>
