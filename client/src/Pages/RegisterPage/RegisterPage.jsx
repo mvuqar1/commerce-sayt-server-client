@@ -3,24 +3,30 @@ import { Button, Form, Input, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import Divider from '../../Components/Divider';
 import { RegisterUser } from '../../Api/usersApi';
+import { SetLoader } from '../../Redux/LoaderSlice';
+import { useDispatch } from 'react-redux';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+  const dispatch=useDispatch()
 
 
   const onFinish = async (values) => {
+    dispatch(SetLoader(true))
     try {
       const response = await RegisterUser(values)
-      console.log(response)
       if (response.succes) {
         message.success(response.message)
         navigate("/login")
+        dispatch(SetLoader(false))
       }
       else {
+        dispatch(SetLoader(false))
         throw new Error(response.message)
       }
     } catch (error) {
       message.error(error.message)
+      dispatch(SetLoader(false))
     }
   };
 
@@ -30,7 +36,6 @@ export default function RegisterPage() {
       required: true,
       message: "required"
     }
-
   ]
   return (
     <div className='h-screen flex justify-center items-center bg-slate-400'>

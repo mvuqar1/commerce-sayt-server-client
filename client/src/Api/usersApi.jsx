@@ -9,7 +9,6 @@ export const RegisterUser = async (payload) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload)
-
         })
         const data = await request.json()
         return data
@@ -25,7 +24,6 @@ export const LoginUser = async (payload) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload)
-
         })
         const data = await request.json()
         return data

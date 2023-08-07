@@ -8,8 +8,33 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: 'Electrolize', sans-serif;
+  /* font-size: 15px; */
 }
 /* 
 .primary{
   background-color: #1677FF;
 } */
+input,select{
+  height: 45px !important;
+  border: 1px solid #b9b9b9;
+  width: 100%;
+}
+
+input,select:focus{
+  outline: none !important;
+  border: 1px solid #6a6a6a;
+  box-shadow: none !important;
+}
+
+button{
+  height: 45px !important;
+  box-shadow: none !important;
+}
+
+table{
+  border: 1px solid #a1a1a1 !important;
+  border-radius: 2px;
+}
+i{
+  font-size: 20px;
+}
