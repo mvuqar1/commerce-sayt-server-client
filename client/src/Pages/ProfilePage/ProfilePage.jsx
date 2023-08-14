@@ -8,17 +8,17 @@ export default function ProfilePage() {
     {
       key: '1',
       label: `Buy / Sell`,
-      children: <ProductsPage/>,
+      children: <ProductsPage key="Buy / Sell"/>,
     },
     {
       key: '2',
       label: `Bids`,
-      children: <h1>Bids</h1>,
+      children: <h1 key={"Bids"}>Bids</h1>,
     },
     {
       key: '3',
       label: `General`,
-      children: <h1>General</h1>,
+      children: <h1 key={"General"}>General</h1>,
     },
   ];
   return (

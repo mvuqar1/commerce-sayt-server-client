@@ -2,6 +2,7 @@ import { Button, Table, message } from 'antd'
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import React, { useEffect, useState } from 'react'
 import ProductsForm from './ProductsForm/ProductsForm'
+import moment from "moment"
 import { useDispatch } from 'react-redux'
 import { SetLoader } from '../../../Redux/LoaderSlice'
 import { DeleteProduct, GetProducts } from '../../../Api/productsApi'
@@ -26,7 +27,22 @@ export default function ProductsPage() {
             dispatch(SetLoader(false))
         }
     }
-
+    
+    const deleteProduct=async(id)=>{
+        try {
+            dispatch(SetLoader(true))
+            const response=await DeleteProduct(id);
+            if (response.success) {
+                message.success(response.message);
+                handleProductAddedOrUpdated();
+            }
+        } catch (error) {
+            message.error(error.message);
+        }
+        finally{
+            dispatch(SetLoader(false))
+        }
+    }
     useEffect(() => {
         getData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,21 +79,25 @@ export default function ProductsPage() {
             dataIndex: "status"
         },
         {
+            title: "Added On",
+            dataIndex: "createdAt",
+            render:(text,record)=>moment(record.createdAt).format("DD-MM-YYYY hh:mm A")
+        },
+        {
             title: "Action",
             dataIndex: "action",
             render: (text, record) => {
                 return (
                     <div className='flex gap-5'>
-                        <DeleteOutlined onClick={async () => {
-                            try {
-                                await DeleteProduct(record._id);
-                                handleProductAddedOrUpdated();
-                            } catch (error) {
-                                message.error(error.message);
-                            }
-                        }}
+                        <DeleteOutlined
+                        key={`delete-${record._id}`}
+                        onClick={() => 
+                           deleteProduct(record._id)
+                        }
                         />
-                        <EditOutlined onClick={() => {
+                        <EditOutlined 
+                            key={`edit-${record._id}`}
+                            onClick={() => {
                             setSelectedProduct(record);
                             setModalOpen(true)
                         }} />

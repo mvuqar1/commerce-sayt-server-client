@@ -56,3 +56,16 @@ export const DeleteProduct = async (id) => {
         return error.message
     }
 }
+
+export const UploadImage = async (payload) => {
+    try {
+        const request = await fetch(`${fetchUrl}/api/products/upload-image-to-product`, {
+            method: "POST",
+            body: payload
+        })
+        const data = await request.json()
+        return data
+    } catch (error) {
+        return error.message
+    }
+}

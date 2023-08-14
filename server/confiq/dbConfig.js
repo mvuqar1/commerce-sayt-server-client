@@ -11,4 +11,4 @@ connection.on("error",()=>{
     console.log("mongo DB connection is ERROR")
 })
 
-// module.exports=connection
+module.exports=connection

@@ -1,8 +1,6 @@
 export const fetchInstance = () => {
   const token = localStorage.getItem('token');
 
-  console.log(token);
-
   return {
     method: 'GET',
     headers: {

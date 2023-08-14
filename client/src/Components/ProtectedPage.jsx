@@ -17,7 +17,6 @@ export default function ProtectedPage({ children }) {
         dispatch(SetLoader(true))
         try {
             const response = await GetCurrentUser()
-            console.log(response)
             if (response.succes) {
                 dispatch(SetUser(response.data))
                 dispatch(SetLoader(false))
