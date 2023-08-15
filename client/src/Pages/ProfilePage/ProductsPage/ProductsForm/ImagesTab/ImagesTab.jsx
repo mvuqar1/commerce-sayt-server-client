@@ -6,7 +6,7 @@ import { SetLoader } from '../../../../../Redux/LoaderSlice';
 import { UploadImage } from '../../../../../Api/productsApi';
 
 export default function ImagesTab({ setModalOpen, selectProduct, handleProductAddedOrUpdated }) {
-  console.log(selectProduct)
+  const [showPreview,SetShowPreview]=useState(true)
   const [images,SetImages]=useState(selectProduct.images)
   const [file, setFile] = useState(null);
   const dispatch = useDispatch()
@@ -24,6 +24,8 @@ export default function ImagesTab({ setModalOpen, selectProduct, handleProductAd
       if (response.success) {
         message.success(response.message)
         SetImages([...images,response.data])
+        setFile(null)
+        SetShowPreview(false)
 
         handleProductAddedOrUpdated()
       }
@@ -47,6 +49,7 @@ export default function ImagesTab({ setModalOpen, selectProduct, handleProductAd
           console.log(info)
           setFile(info.file)
         }}
+        showUploadList={showPreview}
       >
         <div className='flex gap-2 pb-2'>
           {Array.isArray(images) && images.map((image) => {
