@@ -80,6 +80,7 @@ const storage = multer.diskStorage({
     }
 });
 
+
 router.post("/upload-image-to-product", multer({ storage: storage }).single("file"), async (req, res) => {
     console.log(req.file.path)
     try {

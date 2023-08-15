@@ -14,13 +14,14 @@ export default function ImagesTab({ setModalOpen, selectProduct, handleProductAd
   const upload = async () => {
     try {
       dispatch(SetLoader(true))
-      console.log(file)
+      
       const formData = new FormData();
       formData.append("productId", selectProduct._id);
       formData.append("file", file.originFileObj);
-      console.log(formData)
+  
       const response = await UploadImage(formData)
       dispatch(SetLoader(false))
+      
       if (response.success) {
         message.success(response.message)
         SetImages([...images,response.data])
@@ -32,12 +33,9 @@ export default function ImagesTab({ setModalOpen, selectProduct, handleProductAd
       else {
         message.error(response.message)
       }
-
-
     } catch (error) {
       dispatch(SetLoader(false))
       message.error(error.message)
-
     }
   }
 
@@ -47,9 +45,12 @@ export default function ImagesTab({ setModalOpen, selectProduct, handleProductAd
         listType='picture'
         onChange={(info) => {
           console.log(info)
-          setFile(info.file)
+          const newSelectedImage = info.fileList[info.fileList.length - 1];
+          setFile(newSelectedImage)
+          SetShowPreview(true)
         }}
         showUploadList={showPreview}
+        fileList={file ? [file] : []}
       >
         <div className='flex gap-2 pb-2'>
           {Array.isArray(images) && images.map((image) => {
