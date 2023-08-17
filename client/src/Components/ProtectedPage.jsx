@@ -10,6 +10,7 @@ import { SetUser } from '../Redux/UserSlice'
 
 export default function ProtectedPage({ children }) {
     const userData = useSelector(state => state.users.user)
+    console.log(userData)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -55,7 +56,13 @@ export default function ProtectedPage({ children }) {
                             <UserSwitchOutlined />
                             <span
                                 className='underline cursor-pointer'
-                                onClick={() => { navigate("/profile") }}
+                                onClick={() => { 
+                                    if(userData.role==="user"){
+                                        navigate("/profile")
+                                    }else{
+                                        navigate("/admin")
+                                    }
+                                }}
                             >
                                 {userData?.name}
                             </span>

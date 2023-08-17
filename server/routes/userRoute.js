@@ -54,7 +54,7 @@ router.post("/login",async(req,res)=>{
         //send response
         res.send({
             succes:true,
-            message:"User created succesfull",
+            message:"User login successful",
             data:token
         })
     } catch (error) {

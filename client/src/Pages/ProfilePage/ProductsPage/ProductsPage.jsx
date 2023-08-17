@@ -3,7 +3,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import React, { useEffect, useState } from 'react'
 import ProductsForm from './ProductsForm/ProductsForm'
 import moment from "moment"
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { SetLoader } from '../../../Redux/LoaderSlice'
 import { DeleteProduct, GetProducts } from '../../../Api/productsApi'
 
@@ -12,11 +12,12 @@ export default function ProductsPage() {
     const [products, setProducts] = useState([])
     const [selectProduct, setSelectedProduct] = useState(null)
     const dispatch = useDispatch()
+    const {user}=useSelector((state)=>state.users)
 
     const getData = async () => {
         try {
             dispatch(SetLoader(true))
-            const response = await GetProducts()
+            const response = await GetProducts({seller:user._id})
             if (response.success) {
                 setProducts(response.products)
             }

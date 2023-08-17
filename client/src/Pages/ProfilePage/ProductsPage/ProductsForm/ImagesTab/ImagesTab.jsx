@@ -45,12 +45,12 @@ export default function ImagesTab({ setModalOpen, selectProduct, handleProductAd
         listType='picture'
         onChange={(info) => {
           console.log(info)
-          const newSelectedImage = info.fileList[info.fileList.length - 1];
-          setFile(newSelectedImage)
+          setFile(info.file)
           SetShowPreview(true)
         }}
         showUploadList={showPreview}
-        fileList={file ? [file] : []}
+        // fileList={file ? [file] : []}
+        // onRemove={() => setFile(null)}
       >
         <div className='flex gap-2 pb-2'>
           {Array.isArray(images) && images.map((image) => {

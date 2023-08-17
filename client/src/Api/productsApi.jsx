@@ -16,9 +16,15 @@ export const AddProduct = async (payload) => {
         return error.message
     }
 }
-export const GetProducts = async () => {
+export const GetProducts = async (seller) => {
     try {
-        const request = await fetch(`${fetchUrl}/api/products/get-products`)
+        const request = await fetch(`${fetchUrl}/api/products/get-products`,{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(seller)
+        })
         const data = await request.json()
         return data
     } catch (error) {
@@ -62,6 +68,23 @@ export const UploadImage = async (payload) => {
         const request = await fetch(`${fetchUrl}/api/products/upload-image-to-product`, {
             method: "POST",
             body: payload
+        })
+        const data = await request.json()
+        return data
+    } catch (error) {
+        return error.message
+    }
+}
+
+export const StatusUpdate = async (id,status) => {
+    console.log("Status before JSON.stringify:", status);
+    try {
+        const request = await fetch(`${fetchUrl}/api/products/update-product-status/${id}`,{
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(status)
         })
         const data = await request.json()
         return data

@@ -23,10 +23,14 @@ router.post("/add-product", async (req, res) => {
 })
 
 //get all products
-router.get("/get-products", async (req, res) => {
+router.post("/get-products", async (req, res) => {
     try {
-        const products = await Products.find().sort({ createdAt: -1 })
-        console.log(products)
+        const{seller,category,age}=req.body
+        let filters={}
+        if(seller){
+            filters.seller=seller
+        }
+        const products = await Products.find(filters).populate("seller").sort({ createdAt: -1 })
         res.send({
             success: true,
             products
@@ -42,7 +46,7 @@ router.get("/get-products", async (req, res) => {
 //edit  products
 router.put("/edit-product/:id", async (req, res) => {
     try {
-        const products = await Products.findByIdAndUpdate(req.params.id, req.body)
+        await Products.findByIdAndUpdate(req.params.id, req.body)
         res.send({
             success: true,
             message: "Product update successfully"
@@ -57,10 +61,8 @@ router.put("/edit-product/:id", async (req, res) => {
 
 //delete  products
 router.delete("/delete-product/:id", async (req, res) => {
-    console.log(req.params.id)
-
     try {
-        const products = await Products.findByIdAndDelete(req.params.id)
+        await Products.findByIdAndDelete(req.params.id)
         res.send({
             success: true,
             message: "Product delete successfully"
@@ -80,9 +82,7 @@ const storage = multer.diskStorage({
     }
 });
 
-
 router.post("/upload-image-to-product", multer({ storage: storage }).single("file"), async (req, res) => {
-    console.log(req.file.path)
     try {
         //upload image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path,{folder:"sheymp"})
@@ -96,12 +96,28 @@ router.post("/upload-image-to-product", multer({ storage: storage }).single("fil
         data:result.secure_url
     })
 } catch (error) {
-    console.log(error)
     res.send({
         success: false,
         message: error.message,
     })
 }
+})
+
+//edit and change status
+router.put("/update-product-status/:id", async (req, res) => {
+    try {
+        const{status}=req.body
+        await Products.findByIdAndUpdate(req.params.id, {status})
+        res.send({
+            success: true,
+            message: "Product status update successfully"
+        })
+    } catch (error) {
+        res.send({
+            success: false,
+            message: error.message
+        })
+    }
 })
 
 module.exports = router
