@@ -40,3 +40,12 @@ export const GetCurrentUser = async () => {
         return error.message;
     }
 };
+export const GetAllUsers = async () => {
+    try {
+        const response = await fetch(`${fetchUrl}/api/user/get-all-users`, fetchInstance());
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        return error.message;
+    }
+};

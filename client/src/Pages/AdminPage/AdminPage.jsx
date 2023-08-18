@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tabs } from 'antd';
 import ProductsAdmin from './ProductsAdmin/ProductsAdmin';
+import UsersPage from './UsersPage/UsersPage';
 
 export default function AdminPage() {
     const items = [
@@ -12,7 +13,7 @@ export default function AdminPage() {
         {
           key: '2',
           label: `Users`,
-          children: <h1 key={"users"}>Users</h1>,
+          children: <UsersPage key={"UsersPage"}/>,
         },
       ];
       return (

@@ -10,7 +10,6 @@ import { SetUser } from '../Redux/UserSlice'
 
 export default function ProtectedPage({ children }) {
     const userData = useSelector(state => state.users.user)
-    console.log(userData)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 

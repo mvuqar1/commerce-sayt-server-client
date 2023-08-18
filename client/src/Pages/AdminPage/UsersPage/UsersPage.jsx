@@ -3,18 +3,22 @@ import React, { useEffect, useState } from 'react'
 import moment from "moment"
 import { useDispatch} from 'react-redux'
 import { SetLoader } from '../../../Redux/LoaderSlice'
-import { GetProducts, StatusUpdate } from '../../../Api/productsApi'
+import { StatusUpdate } from '../../../Api/productsApi'
+import { GetAllUsers } from '../../../Api/usersApi'
 
-export default function ProductsAdmin() {
-    const [products, setProducts] = useState([])
+export default function UsersPage() {
+    const [users,setUsers ] = useState([])
     const dispatch = useDispatch()
 
     const getData = async () => {
         try {
             dispatch(SetLoader(true))
-            const response = await GetProducts()
-            if (response.success) {
-                setProducts(response.products)
+            const response = await GetAllUsers()
+            console.log(response)
+            console.log(users)
+            if (response.succes) {
+                setUsers(response.data)
+                console.log(users)
             }
         } catch (error) {
             console.log(error)
@@ -48,27 +52,15 @@ export default function ProductsAdmin() {
             dataIndex: "name"
         },
         {
-            title: "Seller",
-            dataIndex: "seller",
+            title: "Email",
+            dataIndex: "email",
+        },
+        {
+            title: "Role",
+            dataIndex: "role",
             render:(text,record)=>{
-                return record.seller.name
+                return record.role.toUpperCase()
             }
-        },
-        {
-            title: "Description",
-            dataIndex: "description"
-        },
-        {
-            title: "Price",
-            dataIndex: "price"
-        },
-        {
-            title: "Category",
-            dataIndex: "category"
-        },
-        {
-            title: "Age",
-            dataIndex: "age"
         },
         {
             title: "Status",
@@ -78,7 +70,7 @@ export default function ProductsAdmin() {
             }
         },
         {
-            title: "Added On",
+            title: "CreatedAt",
             dataIndex: "createdAt",
             render:(text,record)=>moment(record.createdAt).format("DD-MM-YYYY hh:mm A")
         },
@@ -87,6 +79,7 @@ export default function ProductsAdmin() {
             dataIndex: "action",
             render: (text, record) => {
                 const {status,_id}=record
+                console.log(record)
                 return (
                     <div className='flex gap-3'>
                         {status === "pending" &&
@@ -135,7 +128,7 @@ export default function ProductsAdmin() {
         <>
             <div className='flex justify-end'>
             </div>
-            <Table className='mt-2' columns={columns} dataSource={products} />
+            <Table className='mt-2' columns={columns} dataSource={users} />
         </>
     )
 }

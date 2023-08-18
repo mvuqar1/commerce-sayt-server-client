@@ -58,7 +58,6 @@ router.post("/login",async(req,res)=>{
             data:token
         })
     } catch (error) {
-        console.log(error)
         res.send({
             succes:false,
             message:error.message,
@@ -73,6 +72,21 @@ router.get("/get-current-user",authMiddleWare,async(req,res)=>{
             succes:true,
             message:"Fetched successfully",
             data:user
+        })
+    } catch (error) {
+        res.send({
+            succes:false,
+            message:error.message
+        })
+    }
+})
+router.get("/get-all-users",authMiddleWare,async(req,res)=>{
+    try {
+        const users=await User.find()
+        res.send({
+            succes:true,
+            message:"UsersFetched successfully",
+            data:users
         })
     } catch (error) {
         res.send({
