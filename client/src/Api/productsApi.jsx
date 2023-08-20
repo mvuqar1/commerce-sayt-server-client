@@ -75,6 +75,22 @@ export const UploadImage = async (payload) => {
         return error.message
     }
 }
+export const DeleteImage = async (id,payload) => {
+    console.log(id,payload)
+    try {
+        const request = await fetch(`${fetchUrl}/api/products/delete-image-from-product/${id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+        const data = await request.json()
+        return data
+    } catch (error) {
+        return error.message
+    }
+}
 
 export const StatusUpdate = async (id,status) => {
     console.log("Status before JSON.stringify:", status);

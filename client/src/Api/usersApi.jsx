@@ -49,3 +49,20 @@ export const GetAllUsers = async () => {
         return error.message;
     }
 };
+
+export const UserStatusUpdate = async (id,status) => {
+    try {
+        const request = await fetch(`${fetchUrl}/api/user/update-user-status/${id}`,{
+            method: "PUT",
+            headers: {
+                ...fetchInstance().headers,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(status)
+        })
+        const data = await request.json()
+        return data
+    } catch (error) {
+        return error.message
+    }
+}

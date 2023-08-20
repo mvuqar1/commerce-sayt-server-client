@@ -1,9 +1,9 @@
 import { Button, Upload, message } from 'antd'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
+import { DeleteOutlined} from "@ant-design/icons"
 import { SetLoader } from '../../../../../Redux/LoaderSlice';
-import { UploadImage } from '../../../../../Api/productsApi';
+import { DeleteImage, UploadImage } from '../../../../../Api/productsApi';
 
 export default function ImagesTab({ setModalOpen, selectProduct, handleProductAddedOrUpdated }) {
   const [showPreview,SetShowPreview]=useState(true)
@@ -39,6 +39,13 @@ export default function ImagesTab({ setModalOpen, selectProduct, handleProductAd
     }
   }
 
+  const deleteImage = (event,image) => {
+    event.stopPropagation();
+    const updatedImages = images.filter(img => img !== image);
+    SetImages(updatedImages);
+    DeleteImage(selectProduct._id,updatedImages)
+  };
+
   return (
     <>
       <Upload
@@ -58,8 +65,7 @@ export default function ImagesTab({ setModalOpen, selectProduct, handleProductAd
               <img className='h-20 w-20 object-cover ' src={image} alt="img" />
 
               <div className='flex gap-12'>
-              <EditOutlined key={image} onClick={() => {}} />
-              <DeleteOutlined key={image} onClick={() => {}} />
+              <DeleteOutlined key={image}  onClick={(event) => deleteImage(event,image)} />
               </div>
             </div>
           })}

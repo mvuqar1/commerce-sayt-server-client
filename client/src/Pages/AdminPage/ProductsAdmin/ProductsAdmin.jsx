@@ -14,7 +14,7 @@ export default function ProductsAdmin() {
             dispatch(SetLoader(true))
             const response = await GetProducts()
             if (response.success) {
-                setProducts(response.products)
+                setProducts(response.data)
             }
         } catch (error) {
             console.log(error)

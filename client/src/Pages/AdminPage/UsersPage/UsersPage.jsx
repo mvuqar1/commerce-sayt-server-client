@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react'
 import moment from "moment"
 import { useDispatch} from 'react-redux'
 import { SetLoader } from '../../../Redux/LoaderSlice'
-import { StatusUpdate } from '../../../Api/productsApi'
-import { GetAllUsers } from '../../../Api/usersApi'
+import { GetAllUsers, UserStatusUpdate } from '../../../Api/usersApi'
 
 export default function UsersPage() {
     const [users,setUsers ] = useState([])
@@ -14,11 +13,8 @@ export default function UsersPage() {
         try {
             dispatch(SetLoader(true))
             const response = await GetAllUsers()
-            console.log(response)
-            console.log(users)
             if (response.succes) {
                 setUsers(response.data)
-                console.log(users)
             }
         } catch (error) {
             console.log(error)
@@ -30,7 +26,7 @@ export default function UsersPage() {
     const onStatusUpdate = async (id,text) => {
         try {
             dispatch(SetLoader(true))
-            await StatusUpdate(id,{status:text})
+            await UserStatusUpdate(id,{status:text})
             await getData()
         } catch (error) {
             console.log(error)
@@ -79,46 +75,28 @@ export default function UsersPage() {
             dataIndex: "action",
             render: (text, record) => {
                 const {status,_id}=record
-                console.log(record)
                 return (
                     <div className='flex gap-3'>
-                        {status === "pending" &&
+                        {status === "active" &&
                             (<span
                                 className='underline cursor-pointer'
                                 onClick={() => {
-                                    onStatusUpdate(_id,"approved");
-                                }}
-                            >
-                                Approve
-                            </span>)}
-                        {status === "pending" &&
-                            (<span
-                                className='underline cursor-pointer'
-                                onClick={() => {
-                                    onStatusUpdate(_id,"rejected");
-                                   
-                                }} 
-                            >
-                                Reject
-                            </span>)}
-                        {status === "approved" &&
-                            (<span
-                                className='underline cursor-pointer'
-                                onClick={() => {
-                                    onStatusUpdate(_id,"blocked");
+                                    onStatusUpdate(_id,"block");
                                 }}
                             >
                                 Block
                             </span>)}
-                        {status === "blocked" &&
+                        {status === "block" &&
                             (<span
                                 className='underline cursor-pointer'
                                 onClick={() => {
-                                    onStatusUpdate(_id,"approved");
-                                }}
+                                    onStatusUpdate(_id,"active");
+                                   
+                                }} 
                             >
                                 Unblock
                             </span>)}
+
                     </div>
                 )
             }

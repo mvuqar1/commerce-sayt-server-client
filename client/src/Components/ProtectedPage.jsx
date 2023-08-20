@@ -22,7 +22,6 @@ export default function ProtectedPage({ children }) {
                 dispatch(SetLoader(false))
             }
             else {
-                console.log("useeffect -> async -> else")
                 message.error(response.message)
                 navigate("/login")
                 dispatch(SetLoader(false))

@@ -39,6 +39,8 @@ router.post("/login",async(req,res)=>{
         if (!user){
             throw new Error("User not found")
         }
+    
+        
         //compare password
         const validPassword=await bcrypt.compare(
             req.body.password,
@@ -47,7 +49,10 @@ router.post("/login",async(req,res)=>{
         if(!validPassword){
             throw new Error("Invalid pasword")
         }
-
+        
+        if(user.status==="block"){
+            throw new Error("User is blocked.Contack to Admin")
+        }
         //create and assign token
         const token=jwt.sign({userId:user._id},process.env.jwt_secret,{expiresIn:"1d"})
         
@@ -85,13 +90,29 @@ router.get("/get-all-users",authMiddleWare,async(req,res)=>{
         const users=await User.find()
         res.send({
             succes:true,
-            message:"UsersFetched successfully",
+            message:"Users Fetched successfully",
             data:users
         })
     } catch (error) {
         res.send({
             succes:false,
             message:error.message
+        })
+    }
+})
+
+router.put("/update-user-status/:id",authMiddleWare, async (req, res) => {
+    try {
+        const{status}=req.body
+        await User.findByIdAndUpdate(req.params.id, {status})
+        res.send({
+            success: true,
+            message: "User status update successfully"
+        })
+    } catch (error) {
+        res.send({
+            success: false,
+            message: error.message
         })
     }
 })

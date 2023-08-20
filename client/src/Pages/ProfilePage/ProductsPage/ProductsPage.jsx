@@ -19,7 +19,7 @@ export default function ProductsPage() {
             dispatch(SetLoader(true))
             const response = await GetProducts({seller:user._id})
             if (response.success) {
-                setProducts(response.products)
+                setProducts(response.data)
             }
         } catch (error) {
             console.log(error)
