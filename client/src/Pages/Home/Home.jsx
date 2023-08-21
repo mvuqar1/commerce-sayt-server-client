@@ -17,7 +17,7 @@ export default function Home() {
         const response = await GetProducts()
         if (response.success) {
           setProducts(response.data)
-          console.log(products)
+          await console.log(products)
         }
     } catch (error) {
         console.log(error)
@@ -35,15 +35,15 @@ export default function Home() {
 
   return (
     <div>
-      <div className='grid grid-cols-5 gap2'>
+      <div className='grid grid-cols-5 gap-2'>
         {products?.map((product) => (
           <div 
-          className='border border-gray-300 rounded border-solid flex flex-col gap-5 pb-2' 
+          className='border border-gray-300 rounded border-solid flex flex-col gap-5 pb-2 cursor-pointer' 
           key={product._id}
           onClick={() => navigate(`/product/${product._id}`)}
           >
             <img
-            src={product.image}
+            src={product.images[0]}
             className='w-full h-40 object-cover'
             alt='first foto'
             />

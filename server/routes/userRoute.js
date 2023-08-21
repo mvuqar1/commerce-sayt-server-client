@@ -39,8 +39,7 @@ router.post("/login",async(req,res)=>{
         if (!user){
             throw new Error("User not found")
         }
-    
-        
+          
         //compare password
         const validPassword=await bcrypt.compare(
             req.body.password,
@@ -85,6 +84,7 @@ router.get("/get-current-user",authMiddleWare,async(req,res)=>{
         })
     }
 })
+
 router.get("/get-all-users",authMiddleWare,async(req,res)=>{
     try {
         const users=await User.find()

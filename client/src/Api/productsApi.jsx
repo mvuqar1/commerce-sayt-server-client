@@ -1,16 +1,15 @@
 const fetchUrl = "http://localhost:5001"
 
-
 export const AddProduct = async (payload) => {
     try {
-        const request = await fetch(`${fetchUrl}/api/products/add-product`, {
+        const response = await fetch(`${fetchUrl}/api/products/add-product`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload)
         })
-        const data = await request.json()
+        const data = await response.json()
         return data
     } catch (error) {
         return error.message
@@ -18,14 +17,14 @@ export const AddProduct = async (payload) => {
 }
 export const GetProducts = async (seller) => {
     try {
-        const request = await fetch(`${fetchUrl}/api/products/get-products`,{
+        const response = await fetch(`${fetchUrl}/api/products/get-products`,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(seller)
         })
-        const data = await request.json()
+        const data = await response.json()
         return data
     } catch (error) {
         return error.message
@@ -33,20 +32,19 @@ export const GetProducts = async (seller) => {
 }
 export const EditProduct = async (id, payload) => {
     try {
-        const request = await fetch(`${fetchUrl}/api/products/edit-product/${id}`, {
+        const response = await fetch(`${fetchUrl}/api/products/edit-product/${id}`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload)
         })
-        const data = await request.json()
+        const data = await response.json()
         return data
     } catch (error) {
         return error.message
     }
 }
-
 export const DeleteProduct = async (id) => {
     console.log(id)
     try {
@@ -63,29 +61,40 @@ export const DeleteProduct = async (id) => {
     }
 }
 
-export const UploadImage = async (payload) => {
+export const GetProductById = async (id) => {
     try {
-        const request = await fetch(`${fetchUrl}/api/products/upload-image-to-product`, {
-            method: "POST",
-            body: payload
-        })
-        const data = await request.json()
+        const response = await fetch(`${fetchUrl}/api/products/get-product-by-id/${id}`)
+        const data = await response.json()
         return data
     } catch (error) {
         return error.message
     }
 }
+
+export const UploadImage = async (payload) => {
+    try {
+        const response = await fetch(`${fetchUrl}/api/products/upload-image-to-product`, {
+            method: "POST",
+            body: payload
+        })
+        const data = await response.json()
+        return data
+    } catch (error) {
+        return error.message
+    }
+}
+
 export const DeleteImage = async (id,payload) => {
     console.log(id,payload)
     try {
-        const request = await fetch(`${fetchUrl}/api/products/delete-image-from-product/${id}`, {
+        const response = await fetch(`${fetchUrl}/api/products/delete-image-from-product/${id}`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload)
         })
-        const data = await request.json()
+        const data = await response.json()
         return data
     } catch (error) {
         return error.message
@@ -95,16 +104,52 @@ export const DeleteImage = async (id,payload) => {
 export const StatusUpdate = async (id,status) => {
     console.log("Status before JSON.stringify:", status);
     try {
-        const request = await fetch(`${fetchUrl}/api/products/update-product-status/${id}`,{
+        const response = await fetch(`${fetchUrl}/api/products/update-product-status/${id}`,{
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(status)
         })
-        const data = await request.json()
+        const data = await response.json()
         return data
     } catch (error) {
         return error.message
     }
+}
+
+
+export const PlaceNewBid=async(payload)=>{
+    try {
+        const response=await fetch(`${fetchUrl}/api/bids/add-bid`,{
+            method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+        })
+        const data=await response.json()
+        return data
+    } catch (error) {
+        return error.message
+    }
+
+}
+export const GetAllBids=async(payload)=>{
+    console.log(payload)
+    try {
+        const response=await fetch(`${fetchUrl}/api/bids/get-all-bids`,{
+            method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({payload})
+        })
+        const data=await response.json()
+        console.log(data)
+        return data
+    } catch (error) {
+        return error.message
+    }
+
 }

@@ -21,7 +21,6 @@ router.post("/add-product", async (req, res) => {
         })
     }
 })
-
 //get all products
 router.post("/get-products", async (req, res) => {
     try {
@@ -42,7 +41,6 @@ router.post("/get-products", async (req, res) => {
         })
     }
 })
-
 //edit  products
 router.put("/edit-product/:id", async (req, res) => {
     try {
@@ -58,7 +56,6 @@ router.put("/edit-product/:id", async (req, res) => {
         })
     }
 })
-
 //delete  products
 router.delete("/delete-product/:id", async (req, res) => {
     try {
@@ -74,6 +71,22 @@ router.delete("/delete-product/:id", async (req, res) => {
         })
     }
 })
+//get product by id
+router.get("/get-product-by-id/:id", async (req, res) => {
+    console.log(req.params)
+    try {
+        const product = await Products.findById(req.params.id).populate("seller")
+        res.send({
+            success: true,
+            data:product
+        })
+    } catch (error) {
+        res.send({
+            success: false,
+            message: error.message
+        })
+    }
+})
 
 //get image from pc
 const storage = multer.diskStorage({
@@ -81,7 +94,6 @@ const storage = multer.diskStorage({
         callback(null, Date.now() + file.originalname)
     }
 });
-
 router.post("/upload-image-to-product", multer({ storage: storage }).single("file"), async (req, res) => {
     try {
         //upload image to cloudinary

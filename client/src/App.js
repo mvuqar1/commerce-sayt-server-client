@@ -7,6 +7,7 @@ import Spinner from './Components/Spinner';
 import {useSelector} from 'react-redux'
 import Profile from './Pages/ProfilePage/ProfilePage';
 import AdminPage from './Pages/AdminPage/AdminPage';
+import ProductInfo from './Pages/ProductInfo/ProductInfo';
 
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ProtectedPage><Home /></ProtectedPage>}/>
+          <Route path="/product/:id" element={<ProtectedPage><ProductInfo /></ProtectedPage>}/>
           <Route path="/profile" element={<ProtectedPage><Profile /></ProtectedPage>}/>
           <Route path="/admin" element={<ProtectedPage><AdminPage /></ProtectedPage>}/>
           <Route path="/login" element={<LoginPage />}/>

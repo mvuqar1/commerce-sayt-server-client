@@ -47,7 +47,7 @@ export default function ProtectedPage({ children }) {
             {userData && (
                 <div>
                     <div className='flex items-center justify-between p-5 bg-primary text-2xl  uppercase'>
-                        <h1 className='text-white'>
+                        <h1 className='text-white' onClick={()=>navigate("/")}>
                             shey mp
                         </h1>
                         <div className='bg-white rounded py-2 px-2 flex items-center gap-1'>
@@ -73,7 +73,9 @@ export default function ProtectedPage({ children }) {
                             />
                         </div>
                     </div>
-                    {children}
+                    <div className='mx-2 mt-2 mb-2'>
+                        {children}
+                    </div>
                 </div>
             )}
         </div>
