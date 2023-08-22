@@ -36,13 +36,11 @@ router.post("/get-all-bids", async (req, res) => {
         .populate("product")
         .populate("seller")
         .populate("buyer")
-
-        const jsonBids =  JSON.stringify(bids);
-
+      
 
         res.send({
             success: true,
-            data: jsonBids
+            data: bids
         })
     } catch (error) {
         res.send({

@@ -6,9 +6,11 @@ import moment from "moment"
 import { useDispatch, useSelector } from 'react-redux'
 import { SetLoader } from '../../../Redux/LoaderSlice'
 import { DeleteProduct, GetProducts } from '../../../Api/productsApi'
+import ProductsBidsPage from './ProductsBidsPage/ProductsBidsPage'
 
 export default function ProductsPage() {
     const [modalOpen, setModalOpen] = useState(false)
+    const [showBids, SetShowBids] = useState(false)
     const [products, setProducts] = useState([])
     const [selectProduct, setSelectedProduct] = useState(null)
     const dispatch = useDispatch()
@@ -102,6 +104,15 @@ export default function ProductsPage() {
                             setSelectedProduct(record);
                             setModalOpen(true)
                         }} />
+                        <span
+                        className='underline cursor-pointer'
+                            onClick={()=>{
+                                SetShowBids(true);
+                                setSelectedProduct(record)
+                            }}
+                        >
+                            Show Bids
+                        </span>
                     </div>
                 )
             }
@@ -126,6 +137,13 @@ export default function ProductsPage() {
                     setSelectedProduct={setSelectedProduct}
                     handleProductAddedOrUpdated={handleProductAddedOrUpdated}
                 />)}
+                {showBids &&
+        <ProductsBidsPage 
+        showBids={showBids}
+        SetShowBids={SetShowBids}
+        selectProduct={selectProduct}
+        setSelectedProduct={setSelectedProduct}   
+        />}
         </>
     )
 }

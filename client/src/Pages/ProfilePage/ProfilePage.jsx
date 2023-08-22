@@ -23,7 +23,7 @@ export default function ProfilePage() {
   ];
   return (
     <div className='mx-4 my-2'>
-      <Tabs defaultActiveKey='1' items={items}/>
+      <Tabs defaultActiveKey='1' key={items.key} items={items}/>
     </div>
   );
 }

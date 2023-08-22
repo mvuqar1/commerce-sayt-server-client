@@ -10,6 +10,7 @@ import NewBidModalPage from './NewBidModalPage/NewBidModalPage';
 
 export default function ProductInfo() {
     const userData = useSelector(state => state.users.user)
+    const[bidsData,setBidsData]=useState(null)
     const [product, setProduct] = useState(null)
     const [selectedImage, setselectedImage] = useState(0)
      const [showBidModal, setShowBidModal] = useState(false)
@@ -32,6 +33,7 @@ export default function ProductInfo() {
                         ...response.data,
                         bids: bidsResponse.data
                     });
+                    setBidsData(bidsResponse.data)
                     }
                 }
         } catch (error) {
@@ -46,6 +48,13 @@ export default function ProductInfo() {
         getData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    useEffect(() => {
+        if (showBidModal) {
+            getData(); 
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [showBidModal]);
 
     return (
         product && (
@@ -151,14 +160,36 @@ export default function ProductInfo() {
                                     New Bid
                                 </Button>
                             </div>
+                            {product.bids && (product.bids.map((bid)=>{
+                                    return(
+                                        <div className="border border-gray-300 border-solid p-2 mb-2 rounded">
+                                            <div className="flex justify-between text-gray-600">
+                                                <span>Name</span>
+                                                <span>{bid.buyer.name}</span>
+                                            </div>
+                                            <div className="flex justify-between text-gray-600">
+                                                <span>Bid Amount</span>
+                                                <span>{bid.bidAmount}</span>
+                                            </div>
+                                            <div className="flex justify-between text-gray-600">
+                                                <span>Bid Place On</span>
+                                                <span>{moment(bid.buyer.createdAt).format("MMM D, YYYY hh:mm A")}</span>
+                                            </div>
+                        
+                                        </div>
+                                    )
+                                })
+
+                                )}
                         </div>
+
                         {showBidModal &&
                         <NewBidModalPage
                         product={product}
                         setShowBidModal={setShowBidModal}
                         showBidModal={showBidModal}
-
                         />}
+
                     </div>
                 </div>
             </div>

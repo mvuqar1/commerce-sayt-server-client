@@ -25,6 +25,7 @@ export const GetProducts = async (seller) => {
             body: JSON.stringify(seller)
         })
         const data = await response.json()
+        console.log(data)
         return data
     } catch (error) {
         return error.message
@@ -118,7 +119,6 @@ export const StatusUpdate = async (id,status) => {
     }
 }
 
-
 export const PlaceNewBid=async(payload)=>{
     try {
         const response=await fetch(`${fetchUrl}/api/bids/add-bid`,{
@@ -135,21 +135,22 @@ export const PlaceNewBid=async(payload)=>{
     }
 
 }
-export const GetAllBids=async(payload)=>{
-    console.log(payload)
+export const GetAllBids = async (payload) => {
+    console.log(payload);
     try {
-        const response=await fetch(`${fetchUrl}/api/bids/get-all-bids`,{
+        const response = await fetch(`${fetchUrl}/api/bids/get-all-bids`, {
             method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({payload})
-        })
-        const data=await response.json()
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
         console.log(data)
         return data
     } catch (error) {
-        return error.message
+        console.log(error);
+        return { success: false, message: error.message };
     }
-
 }
