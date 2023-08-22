@@ -8,7 +8,7 @@ import { DeleteImage, UploadImage } from '../../Api/productsApi';
 
 export default function EditImagesTab({ setModalOpen, selectProduct, handleProductAddedOrUpdated }) {
   const [showPreview,SetShowPreview]=useState(true)
-  const [images,SetImages]=useState(selectProduct.images)
+  const [images, SetImages] = useState(selectProduct?.images || []);
   const [file, setFile] = useState(null);
   const dispatch = useDispatch()
 
@@ -52,7 +52,6 @@ export default function EditImagesTab({ setModalOpen, selectProduct, handleProdu
       <Upload
         listType='picture'
         onChange={(info) => {
-          console.log(info)
           setFile(info.file)
           SetShowPreview(true)
         }}

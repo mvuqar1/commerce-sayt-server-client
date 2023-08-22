@@ -24,10 +24,13 @@ router.post("/add-product", async (req, res) => {
 //get all products
 router.post("/get-products", async (req, res) => {
     try {
-        const { seller, category, age } = req.body
+        const { seller, category, age,status} = req.body
         let filters = {}
         if (seller) {
             filters.seller = seller
+        }
+        if (status) {
+            filters.status = status
         }
         const products = await Products.find(filters).populate("seller").sort({ createdAt: -1 })
         res.send({

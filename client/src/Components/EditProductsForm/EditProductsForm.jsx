@@ -30,6 +30,7 @@ export default function EditProductsForm({ modalOpen, setModalOpen, selectProduc
       setModalOpen={setModalOpen}
       selectProduct={selectProduct} 
       />,
+      disabled: !selectProduct,
     },
   ];
 

@@ -5,7 +5,12 @@ import {SetLoader} from "../../Redux/LoaderSlice"
 import { AddProduct, EditProduct } from '../../Api/productsApi'
 
 
-export default function EditGeneralTab({formRef,setModalOpen,selectProduct,setSelectedProduct,handleProductAddedOrUpdated}) {
+export default function EditGeneralTab({
+    formRef,
+    setModalOpen,
+    selectProduct,
+    setSelectedProduct,
+    handleProductAddedOrUpdated}) {
 
     const dispatch=useDispatch()
     const [form] = Form.useForm();
@@ -105,7 +110,8 @@ export default function EditGeneralTab({formRef,setModalOpen,selectProduct,setSe
                             <select>
                                 <option value="electronics">Electronics</option>
                                 <option value="fashion">Fashion</option>
-                                <option value="home">Home</option>
+                                <option
+                                 value="home">Home</option>
                                 <option value="sport">Sport</option>
                             </select>
                         </Form.Item>
@@ -117,7 +123,7 @@ export default function EditGeneralTab({formRef,setModalOpen,selectProduct,setSe
                     </Col>
                 </Row>
 
-                <Row gutter={16}>
+                <Row gutter={[16, 16]}>
                     <div className='flex gap-10'>
                         {additionalsThings.map((item, index) =>{
                             return(
