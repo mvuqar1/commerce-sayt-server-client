@@ -1,9 +1,11 @@
 import { Col, Form, Input, Row, message } from 'antd'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {SetLoader} from "../../../../../Redux/LoaderSlice"
-import { AddProduct, EditProduct } from '../../../../../Api/productsApi'
-export default function GeneralTab({formRef,setModalOpen,selectProduct,setSelectedProduct,handleProductAddedOrUpdated}) {
+import {SetLoader} from "../../Redux/LoaderSlice"
+import { AddProduct, EditProduct } from '../../Api/productsApi'
+
+
+export default function EditGeneralTab({formRef,setModalOpen,selectProduct,setSelectedProduct,handleProductAddedOrUpdated}) {
 
     const dispatch=useDispatch()
     const [form] = Form.useForm();
@@ -81,6 +83,7 @@ export default function GeneralTab({formRef,setModalOpen,selectProduct,setSelect
                     warrantyAvailable: selectProduct?.warrantyAvailable || false,
                     accesoriesAvailable: selectProduct?.accesoriesAvailable || false,
                     boxAvailable: selectProduct?.boxAvailable || false,
+                    showBidsOnProductPage: selectProduct?.showBidsOnProductPage || false,
                 }}
             >
                 <Form.Item label="Name" name="name" rules={rules}>
@@ -129,6 +132,16 @@ export default function GeneralTab({formRef,setModalOpen,selectProduct,setSelect
                                 />
                             </Form.Item>
                         )})}
+                         <Form.Item key={"showBidsOnProductPage"} label="Show Bids On Product Page" name={"showBidsOnProductPage"} valuePropName="checked">
+                                <Input
+                                type='checkbox'
+                                    onChange={(e) => {
+                                        formRef.current.setFieldsValue({
+                                            showBidsOnProductPage: e.target.checked
+                                        });
+                                    }}
+                                />
+                            </Form.Item>
                     </div>
                 </Row>
 

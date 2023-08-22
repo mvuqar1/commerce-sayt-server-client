@@ -2,10 +2,11 @@ import { Button, Upload, message } from 'antd'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { DeleteOutlined} from "@ant-design/icons"
-import { SetLoader } from '../../../../../Redux/LoaderSlice';
-import { DeleteImage, UploadImage } from '../../../../../Api/productsApi';
+import { SetLoader } from '../../Redux/LoaderSlice';
+import { DeleteImage, UploadImage } from '../../Api/productsApi';
 
-export default function ImagesTab({ setModalOpen, selectProduct, handleProductAddedOrUpdated }) {
+
+export default function EditImagesTab({ setModalOpen, selectProduct, handleProductAddedOrUpdated }) {
   const [showPreview,SetShowPreview]=useState(true)
   const [images,SetImages]=useState(selectProduct.images)
   const [file, setFile] = useState(null);

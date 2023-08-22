@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import Divider from '../../Components/Divider';
 import moment from "moment"
 import { Button } from 'antd';
-import NewBidModalPage from './NewBidModalPage/NewBidModalPage';
+import NewBidModalPage from '../../Components/NewBidModalPage/NewBidModalPage';
 
 export default function ProductInfo() {
     const userData = useSelector(state => state.users.user)
@@ -160,7 +160,7 @@ export default function ProductInfo() {
                                     New Bid
                                 </Button>
                             </div>
-                            {product.bids && (product.bids.map((bid)=>{
+                            {bidsData && product.showBidsOnProductPage && (product.bids.map((bid)=>{
                                     return(
                                         <div className="border border-gray-300 border-solid p-2 mb-2 rounded">
                                             <div className="flex justify-between text-gray-600">

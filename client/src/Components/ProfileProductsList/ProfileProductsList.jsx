@@ -1,14 +1,15 @@
 import { Button, Table, message } from 'antd'
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import React, { useEffect, useState } from 'react'
-import ProductsForm from './ProductsForm/ProductsForm'
+import ProductsForm from '../EditProductsForm/EditProductsForm'
 import moment from "moment"
 import { useDispatch, useSelector } from 'react-redux'
-import { SetLoader } from '../../../Redux/LoaderSlice'
-import { DeleteProduct, GetProducts } from '../../../Api/productsApi'
-import ProductsBidsPage from './ProductsBidsPage/ProductsBidsPage'
+import { SetLoader } from '../../Redux/LoaderSlice'
+import ProductsBidsPage from '../ProductsBidsModalPage/ProductsBidsModalPage'
+import { DeleteProduct, GetProducts } from '../../Api/productsApi'
 
-export default function ProductsPage() {
+
+export default function ProfileProductsList() {
     const [modalOpen, setModalOpen] = useState(false)
     const [showBids, SetShowBids] = useState(false)
     const [products, setProducts] = useState([])
@@ -128,6 +129,7 @@ export default function ProductsPage() {
                     Add Products
                 </Button>
             </div>
+
             <Table className='mt-2' columns={columns} dataSource={products} />
             {modalOpen && (
                 <ProductsForm

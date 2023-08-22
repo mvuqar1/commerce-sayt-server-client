@@ -1,9 +1,9 @@
 import { Modal, Tabs } from 'antd'
 import React, { useRef, useState } from 'react'
-import GeneralTab from './GeneralTab/GeneralTab'
-import ImagesTab from './ImagesTab/ImagesTab'
+import GeneralTab from '../EditGeneralTab/EditGeneralTab'
+import ImagesTab from '../EditImagesTab/EditImagesTab'
 
-export default function ProductsForm({ modalOpen, setModalOpen, selectProduct, setSelectedProduct, handleProductAddedOrUpdated }) {
+export default function EditProductsForm({ modalOpen, setModalOpen, selectProduct, setSelectedProduct, handleProductAddedOrUpdated }) {
 
   const [selectedTab,SetSelectedTab]=useState("1")
 

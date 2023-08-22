@@ -2,9 +2,8 @@ import { Divider, Modal, Table } from 'antd'
 import moment from "moment"
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { SetLoader } from '../../../../Redux/LoaderSlice'
-import { GetAllBids } from '../../../../Api/productsApi'
-
+import { SetLoader } from '../../Redux/LoaderSlice'
+import { GetAllBids } from '../../Api/productsApi'
 
 export default function ProductsBidsPage({ showBids, SetShowBids,selectProduct,setSelectedProduct }) {
     const dispatch=useDispatch()
@@ -85,7 +84,7 @@ export default function ProductsBidsPage({ showBids, SetShowBids,selectProduct,s
 >
     <h1 className='text-xl text-gray-500'>Bids</h1>
     <Divider/>
-    {bids &&  (
+    {bids && (
         <>
             <h1 className='text-xl text-gray-500'>
                 Product name: {selectProduct.name}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs } from 'antd';
-import ProductsPage from './ProductsPage/ProductsPage';
+import ProductsList from '../../Components/ProfileProductsList/ProfileProductsList';
 
 export default function ProfilePage() {
 
@@ -8,7 +8,7 @@ export default function ProfilePage() {
     {
       key: '1',
       label: `Buy / Sell`,
-      children: <ProductsPage key="Buy / Sell"/>,
+      children: <ProductsList key="Buy / Sell"/>,
     },
     {
       key: '2',

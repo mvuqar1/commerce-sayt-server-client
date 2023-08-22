@@ -11,6 +11,7 @@ const productSchema=mongoose.Schema({
     warrantyAvailable: { type: Boolean,default:false, required: true },
     accesoriesAvailable: { type: Boolean,default:false, required: true },
     boxAvailable: { type: Boolean,default:false, required: true },
+    showBidsOnProductPage: { type: Boolean,default:false, required: true },
     seller:{type:mongoose.Schema.Types.ObjectId,ref:"users",required:true},
     status:{type:String,default:"pending",required:true}
 },

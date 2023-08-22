@@ -2,8 +2,8 @@ import { Form, Input, message } from 'antd'
 import Modal from 'antd/es/modal/Modal'
 import React, { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { SetLoader } from '../../../Redux/LoaderSlice'
-import { PlaceNewBid } from '../../../Api/productsApi'
+import { SetLoader } from '../../Redux/LoaderSlice'
+import { PlaceNewBid } from '../../Api/productsApi'
 
 export default function NewBidModalPage({ product, showBidModal, setShowBidModal }) {
     const userData = useSelector((state) => state.users.user)
