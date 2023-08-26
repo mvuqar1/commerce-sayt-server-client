@@ -1,7 +1,7 @@
-import { Table} from 'antd'
+import { Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import moment from "moment"
-import { useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { SetLoader } from '../../../Redux/LoaderSlice'
 import { GetProducts, StatusUpdate } from '../../../Api/productsApi'
 
@@ -19,24 +19,24 @@ export default function ProductsAdmin() {
         } catch (error) {
             console.log(error)
         }
-        finally{
+        finally {
             dispatch(SetLoader(false))
         }
     }
-    const onStatusUpdate = async (id,text) => {
+    const onStatusUpdate = async (id, text) => {
         try {
             dispatch(SetLoader(true))
-            await StatusUpdate(id,{status:text})
+            await StatusUpdate(id, { status: text })
             await getData()
         } catch (error) {
             console.log(error)
         }
-        finally{
+        finally {
             dispatch(SetLoader(false))
         }
     }
-    
-  
+
+
     useEffect(() => {
         getData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,7 +50,7 @@ export default function ProductsAdmin() {
         {
             title: "Seller",
             dataIndex: "seller",
-            render:(text,record)=>{
+            render: (text, record) => {
                 return record.seller.name
             }
         },
@@ -73,27 +73,28 @@ export default function ProductsAdmin() {
         {
             title: "Status",
             dataIndex: "status",
-            render:(text,record)=>{
+            render: (text, record) => {
                 return record.status.toUpperCase()
             }
         },
         {
             title: "Added On",
             dataIndex: "createdAt",
-            render:(text,record)=>moment(record.createdAt).format("DD-MM-YYYY hh:mm A")
+            render: (text, record) => moment(record.createdAt).format("DD-MM-YYYY hh:mm A")
         },
         {
             title: "Action",
             dataIndex: "action",
             render: (text, record) => {
-                const {status,_id}=record
+                const { status, _id } = record
                 return (
                     <div className='flex gap-3'>
                         {status === "pending" &&
                             (<span
                                 className='underline cursor-pointer'
+                                key={`${_id}-approve`}
                                 onClick={() => {
-                                    onStatusUpdate(_id,"approved");
+                                    onStatusUpdate(_id, "approved");
                                 }}
                             >
                                 Approve
@@ -101,18 +102,19 @@ export default function ProductsAdmin() {
                         {status === "pending" &&
                             (<span
                                 className='underline cursor-pointer'
+                                key={`${_id}-reject`}
                                 onClick={() => {
-                                    onStatusUpdate(_id,"rejected");
-                                   
-                                }} 
+                                    onStatusUpdate(_id, "rejected");
+                                }}
                             >
                                 Reject
                             </span>)}
                         {status === "approved" &&
                             (<span
                                 className='underline cursor-pointer'
+                                key={`${_id}-block`}
                                 onClick={() => {
-                                    onStatusUpdate(_id,"blocked");
+                                    onStatusUpdate(_id, "blocked");
                                 }}
                             >
                                 Block
@@ -120,8 +122,9 @@ export default function ProductsAdmin() {
                         {status === "blocked" &&
                             (<span
                                 className='underline cursor-pointer'
+                                key={`${_id}-unblock`}
                                 onClick={() => {
-                                    onStatusUpdate(_id,"approved");
+                                    onStatusUpdate(_id, "approved");
                                 }}
                             >
                                 Unblock

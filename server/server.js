@@ -15,11 +15,13 @@ const dbConfig=require("./confiq/dbConfig")
 const usersRoute=require("./routes/userRoute")
 const productsRoute=require("./routes/productsRoute")
 const bidRoute=require("./routes/bidRoute")
+const notificationsRoute=require("./routes/notificationsRoute")
 
 
 app.use("/api/user",usersRoute)
 app.use("/api/products",productsRoute)
 app.use("/api/bids",bidRoute)
+app.use("/api/notifications",notificationsRoute)
 
 
 app.listen(PORT,()=>{

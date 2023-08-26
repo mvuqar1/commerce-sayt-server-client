@@ -4,6 +4,7 @@ import React, { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { SetLoader } from '../../Redux/LoaderSlice'
 import { PlaceNewBid } from '../../Api/productsApi'
+import { AddNotification } from '../../Api/notificationsApi'
 
 export default function NewBidModalPage({ product, showBidModal, setShowBidModal }) {
     const userData = useSelector((state) => state.users.user)
@@ -25,6 +26,12 @@ export default function NewBidModalPage({ product, showBidModal, setShowBidModal
                 message.success("Bid added succesfully")
                 setShowBidModal(false)
             }
+            await AddNotification({
+                title: "New bid has been placed ",
+                message: `You  have placed a new bid for ${product.name} by ${userData?.name} for ${values.bidAmount}`,
+                user: product.seller._id,
+                onClick: "/profile"
+            })
         } catch (error) {
             dispatch(SetLoader(false))
             console.log(error)

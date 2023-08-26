@@ -24,13 +24,27 @@ router.post("/add-product", async (req, res) => {
 //get all products
 router.post("/get-products", async (req, res) => {
     try {
-        const { seller, category, age,status} = req.body
+        const { seller, category=[], age=[],status} = req.body
         let filters = {}
         if (seller) {
             filters.seller = seller
         }
         if (status) {
             filters.status = status
+        }
+
+        // filters serach by category ([ 'books', 'sport', 'electronics' ] [])
+        if (category.length>0) {
+            filters.category = {$in:category}
+        }
+        // filters serach by age (from - to :[ '0-2' ])
+        if (age.length>0) {
+            age.forEach((item)=>{
+                const fromAge = item.split("-")[0]
+                const toAge = item.split("-")[1]
+                filters.age = {$gte:fromAge,$lte:toAge}
+                
+            })
         }
         const products = await Products.find(filters).populate("seller").sort({ createdAt: -1 })
         res.send({
@@ -76,7 +90,6 @@ router.delete("/delete-product/:id", async (req, res) => {
 })
 //get product by id
 router.get("/get-product-by-id/:id", async (req, res) => {
-    console.log(req.params)
     try {
         const product = await Products.findById(req.params.id).populate("seller")
         res.send({

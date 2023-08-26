@@ -1,5 +1,5 @@
-import { fetchInstance } from "./fetchInstance.jsx"
-const fetchUrl = "http://localhost:5001"
+import { fetchInstance, fetchUrl } from "./fetchInstance.jsx"
+
 
 export const RegisterUser = async (payload) => {
     try {
@@ -51,6 +51,7 @@ export const GetAllUsers = async () => {
 };
 
 export const UserStatusUpdate = async (id,status) => {
+    console.log(id,status)
     try {
         const request = await fetch(`${fetchUrl}/api/user/update-user-status/${id}`,{
             method: "PUT",
@@ -61,6 +62,7 @@ export const UserStatusUpdate = async (id,status) => {
             body: JSON.stringify(status)
         })
         const data = await request.json()
+        console.log(data)
         return data
     } catch (error) {
         return error.message

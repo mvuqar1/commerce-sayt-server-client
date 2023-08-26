@@ -10,7 +10,13 @@ import {AlignLeftOutlined } from "@ant-design/icons"
 
 export default function Home() {
   const [products, setProducts] = useState([])
-  const [filters, setfilters] = useState({status:"approved",category:[],age:[]})
+  const [filters, setFilters] = useState(
+    {
+      status: "approved",
+      category: [],
+      age: []
+    }
+  )
   const [showFilterSidebar, setShowFilterSidebar] = useState(true)
 
   const dispatch=useDispatch()
@@ -35,6 +41,10 @@ export default function Home() {
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
+  useEffect(() => {
+    getData(filters)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [filters])
 
 
   return (
@@ -44,11 +54,11 @@ export default function Home() {
       showFilterSidebar={showFilterSidebar}
       setShowFilterSidebar={setShowFilterSidebar}
       filters={filters}
-      setfilters={setfilters}
+      setFilters={setFilters}
       />
       }
-      <div className='flex flex-col gap-5'>
-        <div className='flex gap-5 items-center'>
+      <div className='flex flex-col w-full gap-5'>
+        <div className='flex gap-5 items-center '>
         {!showFilterSidebar && <AlignLeftOutlined onClick={()=>setShowFilterSidebar(!showFilterSidebar)} />}
         <Input
         type='text'
@@ -58,7 +68,7 @@ export default function Home() {
         />
         </div>
 
-      <div className={`grid gap-5 ${showFilterSidebar?"grid-cols-4":"grid-cols-5"} gap-2`}>
+      <div className={`grid gap-5 ${showFilterSidebar?"grid-cols-4":"grid-cols-5"}  gap-2`}>
         {products?.map((product) => (
           <div 
           className='border border-gray-300 rounded border-solid flex flex-col pb-2 cursor-pointer' 

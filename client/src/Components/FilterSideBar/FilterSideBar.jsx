@@ -19,7 +19,7 @@ export default function FilterSideBar({showFilterSidebar,setShowFilterSidebar,fi
     },
     {
       name:"Sports",
-      value:"sports"
+      value:"sport"
     },
     {
       name:"Books",
@@ -49,6 +49,8 @@ export default function FilterSideBar({showFilterSidebar,setShowFilterSidebar,fi
       value:"12-20"
     },
   ]
+
+
   return (
     <div className='w-72 flex flex-col'>
         <div className="flex justify-between">
@@ -56,14 +58,14 @@ export default function FilterSideBar({showFilterSidebar,setShowFilterSidebar,fi
             <CloseOutlined className='text-xl' onClick={()=>setShowFilterSidebar(!showFilterSidebar)}/>
         </div>
 
-        <div className='flex flex-col gap-1 mt-5'>
-          <h1 className='text-gray-600'>Categories</h1>
+        <div className='flex flex-col'>
+          <h1 className='text-gray-600 m-1'>Categories</h1>
           <div className="flex flex-col gap-1">
-            {categories.map((category)=>{
+            {categories.map((category,index)=>{
               return(
-                <div className='flex items-center gap-2'>
+                <div key={index} className='flex items-center gap-2'>
                   <input
-                  className='w-[20px]'
+                  className='w-[20px]  selected'
                   type='checkbox'
                   name='category'
                   checked={filters.category.includes(category.value)}
@@ -83,7 +85,38 @@ export default function FilterSideBar({showFilterSidebar,setShowFilterSidebar,fi
                     }
                   }}
                   />
-                  <label htmlFor='category'>{category.name}</label>
+                  <label htmlFor='category' >{category.name}</label>
+                </div>
+              )
+            })}
+          </div>
+          <h1 className='text-gray-600 m-1'>Ages</h1>
+          <div className="flex flex-col ">
+            {ages.map((age,index)=>{
+              return(
+                <div key={index} className='flex items-center gap-2'>
+                  <input
+                  className='w-[20px] selected'
+                  type='checkbox'
+                  name='category'
+                  checked={filters.age.includes(age.value)}
+                  onChange={(e)=>{
+                    if(e.target.checked){
+                      setFilters({
+                        ...filters,
+                        age:[...filters.age,age.value],
+                      });
+                    }else{
+                      setFilters({
+                        ...filters,
+                        age:filters.age.filter(
+                          (item)=>item!==age.value
+                        )
+                      })
+                    }
+                  }}
+                  />
+                  <label htmlFor='category'>{age.name}</label>
                 </div>
               )
             })}

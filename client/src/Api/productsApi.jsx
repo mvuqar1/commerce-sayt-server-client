@@ -1,4 +1,5 @@
-const fetchUrl = "http://localhost:5001"
+import { fetchUrl } from "./fetchInstance"
+
 
 export const AddProduct = async (payload) => {
     try {
@@ -25,7 +26,6 @@ export const GetProducts = async (seller) => {
             body: JSON.stringify(seller)
         })
         const data = await response.json()
-        console.log(data)
         return data
     } catch (error) {
         return error.message

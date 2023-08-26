@@ -1,3 +1,5 @@
+export const fetchUrl = "http://localhost:5001"
+
 export const fetchInstance = () => {
   const token = localStorage.getItem('token');
 

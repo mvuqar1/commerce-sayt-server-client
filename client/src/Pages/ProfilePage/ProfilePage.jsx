@@ -3,7 +3,7 @@ import { Tabs } from 'antd';
 import ProductsList from '../../Components/ProfileProductsList/ProfileProductsList';
 
 export default function ProfilePage() {
-
+  
   const items = [
     {
       key: '1',

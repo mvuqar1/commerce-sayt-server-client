@@ -110,9 +110,9 @@ export default function EditGeneralTab({
                             <select>
                                 <option value="electronics">Electronics</option>
                                 <option value="fashion">Fashion</option>
-                                <option
-                                 value="home">Home</option>
+                                <option value="home">Home</option>
                                 <option value="sport">Sport</option>
+                                <option value="books">Books</option>
                             </select>
                         </Form.Item>
                     </Col>

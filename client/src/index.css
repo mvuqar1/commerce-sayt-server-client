@@ -19,6 +19,9 @@ input,select{
   border: 1px solid #b9b9b9;
   width: 100%;
 }
+.selected{
+  height: 25px!important;
+}
 
 input,select:focus{
   outline: none !important;
@@ -37,4 +40,8 @@ table{
 }
 i{
   font-size: 20px;
+}
+
+.max-width{
+  max-width: max-content !important;
 }

@@ -13,7 +13,9 @@ export default function ProductInfo() {
     const[bidsData,setBidsData]=useState(null)
     const [product, setProduct] = useState(null)
     const [selectedImage, setselectedImage] = useState(0)
-     const [showBidModal, setShowBidModal] = useState(false)
+    const [showBidModal, setShowBidModal] = useState(false)
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
 
     const {id} = useParams()
 
@@ -131,6 +133,10 @@ export default function ProductInfo() {
                             <div className='flex justify-between mt-2'>
                                 <span>Box Available</span>
                                 <span>{product.boxAvailable ? "Yes" : "No"}</span>
+                            </div>
+                            <div className='flex justify-between mt-2'>
+                                <span>Purchased Year</span>
+                                <span>{currentYear - product.age} ({product.age} years ago)</span>
                             </div>
                         </div>
                         <Divider />

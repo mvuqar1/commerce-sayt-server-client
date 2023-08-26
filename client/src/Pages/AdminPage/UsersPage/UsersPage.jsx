@@ -76,10 +76,11 @@ export default function UsersPage() {
             render: (text, record) => {
                 const {status,_id}=record
                 return (
-                    <div className='flex gap-3'>
+                    <div className='flex gap-3' key={_id}>
                         {status === "active" &&
                             (<span
                                 className='underline cursor-pointer'
+                                key={`${_id}-block`}
                                 onClick={() => {
                                     onStatusUpdate(_id,"block");
                                 }}
@@ -89,14 +90,13 @@ export default function UsersPage() {
                         {status === "block" &&
                             (<span
                                 className='underline cursor-pointer'
+                                key={`${_id}-unblock`}
                                 onClick={() => {
                                     onStatusUpdate(_id,"active");
-                                   
                                 }} 
                             >
                                 Unblock
                             </span>)}
-
                     </div>
                 )
             }
