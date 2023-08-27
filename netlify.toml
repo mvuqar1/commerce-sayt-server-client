@@ -1,0 +1,11 @@
+[build]
+publish = "build"
+command = "npm run build"
+
+[dev]
+command = "cd server && npm install && node --watch server.js"
+functions = "client/build/functions"
+
+[build]
+publish = "client/build"
+command = "cd client && npm install && npm run build"
