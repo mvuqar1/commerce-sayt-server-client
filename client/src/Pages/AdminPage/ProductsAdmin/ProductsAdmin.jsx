@@ -44,15 +44,15 @@ export default function ProductsAdmin() {
 
     const columns = [
         {
-            title: "Product",
-            dataIndex: "name"
-        },
-        {
             title: "Seller",
             dataIndex: "seller",
             render: (text, record) => {
                 return record.seller.name
             }
+        },
+        {
+            title: "Product",
+            dataIndex: "name"
         },
         {
             title: "Description",
@@ -138,7 +138,7 @@ export default function ProductsAdmin() {
         <>
             <div className='flex justify-end'>
             </div>
-            <Table className='mt-2' columns={columns} dataSource={products} />
+            <Table className='mt-2' columns={columns} dataSource={products.map(product => ({ ...product, key: product._id }))} />
         </>
     )
 }

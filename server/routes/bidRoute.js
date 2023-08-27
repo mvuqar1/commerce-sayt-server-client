@@ -24,7 +24,6 @@ router.post("/add-bid", async (req, res) => {
 router.post("/get-all-bids", async (req, res) => {
     try {
         const {product,seller}=req.body
-        console.log(product,seller)
         let filters={}
         if(product){
             filters.product=product

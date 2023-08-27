@@ -27,8 +27,9 @@ export const GetAllNotifications=async()=>{
 }
 
 export const DeleteNotification=async(id)=>{
+    console.log(id)
     try {
-        const response=fetch(`${fetchUrl}/api/notifications/delete-notification/${id}`,{
+        const response=await fetch(`${fetchUrl}/api/notifications/delete-notification/${id}`,{
             method:"DELETE"
         })
         const data=await response.json()
@@ -40,7 +41,7 @@ export const DeleteNotification=async(id)=>{
 
 export const ReadAllNotifications=async()=>{
     try {
-        const response=fetch(`${fetchUrl}/api/notifications/read-all-notifications`,{
+        const response=await fetch(`${fetchUrl}/api/notifications/read-all-notifications`,{
             method:"PUT",
             headers:{
                 ...fetchInstance().headers,
@@ -50,6 +51,7 @@ export const ReadAllNotifications=async()=>{
         const data=await response.json()
         return data
     } catch (error) {
+        console.log(error)
         return error.message
     }
 }

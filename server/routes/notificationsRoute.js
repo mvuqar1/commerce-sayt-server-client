@@ -36,7 +36,7 @@ router.get("/get-all-notifications",authMiddleWare, async (req, res) => {
     }
 })
 
-router.delete("delete-notification/:id",async(req,res)=>{
+router.delete("/delete-notification/:id",async(req,res)=>{
     try {
        await Notifications.findByIdAndDelete(req.params.id)
         res.send({
@@ -52,7 +52,6 @@ router.delete("delete-notification/:id",async(req,res)=>{
 })
 
 router.put("/read-all-notifications",authMiddleWare,async(req,res)=>{
-    console.log(req.body.userId)
     try {
         await Notifications.updateMany(
             {user:req.body.userId,read:false},

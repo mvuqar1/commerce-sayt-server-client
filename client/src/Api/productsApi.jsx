@@ -103,7 +103,6 @@ export const DeleteImage = async (id,payload) => {
 }
 
 export const StatusUpdate = async (id,status) => {
-    console.log("Status before JSON.stringify:", status);
     try {
         const response = await fetch(`${fetchUrl}/api/products/update-product-status/${id}`,{
             method: "PUT",
@@ -136,7 +135,6 @@ export const PlaceNewBid=async(payload)=>{
 
 }
 export const GetAllBids = async (payload) => {
-    console.log(payload);
     try {
         const response = await fetch(`${fetchUrl}/api/bids/get-all-bids`, {
             method: "POST",
@@ -145,9 +143,7 @@ export const GetAllBids = async (payload) => {
             },
             body: JSON.stringify(payload)
         });
-
         const data = await response.json();
-        console.log(data)
         return data
     } catch (error) {
         console.log(error);

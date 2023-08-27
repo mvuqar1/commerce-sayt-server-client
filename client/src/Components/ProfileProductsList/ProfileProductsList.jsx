@@ -15,27 +15,27 @@ export default function ProfileProductsList() {
     const [products, setProducts] = useState([])
     const [selectProduct, setSelectedProduct] = useState(null)
     const dispatch = useDispatch()
-    const {user}=useSelector((state)=>state.users)
+    const { user } = useSelector((state) => state.users)
 
     const getData = async () => {
         try {
             dispatch(SetLoader(true))
-            const response = await GetProducts({seller:user._id})
+            const response = await GetProducts({ seller: user._id })
             if (response.success) {
                 setProducts(response.data)
             }
         } catch (error) {
             console.log(error)
         }
-        finally{
+        finally {
             dispatch(SetLoader(false))
         }
     }
-    
-    const deleteProduct=async(id)=>{
+
+    const deleteProduct = async (id) => {
         try {
             dispatch(SetLoader(true))
-            const response=await DeleteProduct(id);
+            const response = await DeleteProduct(id);
             if (response.success) {
                 message.success(response.message);
                 handleProductAddedOrUpdated();
@@ -43,7 +43,7 @@ export default function ProfileProductsList() {
         } catch (error) {
             message.error(error.message);
         }
-        finally{
+        finally {
             dispatch(SetLoader(false))
         }
     }
@@ -85,7 +85,7 @@ export default function ProfileProductsList() {
         {
             title: "Added On",
             dataIndex: "createdAt",
-            render:(text,record)=>moment(record.createdAt).format("DD-MM-YYYY hh:mm A")
+            render: (text, record) => moment(record.createdAt).format("DD-MM-YYYY hh:mm A")
         },
         {
             title: "Action",
@@ -94,20 +94,20 @@ export default function ProfileProductsList() {
                 return (
                     <div className='flex gap-5'>
                         <DeleteOutlined
-                        key={`delete-${record._id}`}
-                        onClick={() => 
-                           deleteProduct(record._id)
-                        }
+                            key={`delete-${record._id}`}
+                            onClick={() =>
+                                deleteProduct(record._id)
+                            }
                         />
-                        <EditOutlined 
+                        <EditOutlined
                             key={`edit-${record._id}`}
                             onClick={() => {
-                            setSelectedProduct(record);
-                            setModalOpen(true)
-                        }} />
+                                setSelectedProduct(record);
+                                setModalOpen(true)
+                            }} />
                         <span
-                        className='underline cursor-pointer'
-                            onClick={()=>{
+                            className='underline cursor-pointer'
+                            onClick={() => {
                                 SetShowBids(true);
                                 setSelectedProduct(record)
                             }}
@@ -130,7 +130,7 @@ export default function ProfileProductsList() {
                 </Button>
             </div>
 
-            <Table className='mt-2' columns={columns} dataSource={products} />
+            <Table className='mt-2' columns={columns}  dataSource={products.map(product => ({ ...product, key: product._id }))} />
             {modalOpen && (
                 <ProductsForm
                     modalOpen={modalOpen}
@@ -139,13 +139,13 @@ export default function ProfileProductsList() {
                     setSelectedProduct={setSelectedProduct}
                     handleProductAddedOrUpdated={handleProductAddedOrUpdated}
                 />)}
-                {showBids &&
-        <ProductsBidsPage 
-        showBids={showBids}
-        SetShowBids={SetShowBids}
-        selectProduct={selectProduct}
-        setSelectedProduct={setSelectedProduct}   
-        />}
+            {showBids &&
+                <ProductsBidsPage
+                    showBids={showBids}
+                    SetShowBids={SetShowBids}
+                    selectProduct={selectProduct}
+                    setSelectedProduct={setSelectedProduct}
+                />}
         </>
     )
 }

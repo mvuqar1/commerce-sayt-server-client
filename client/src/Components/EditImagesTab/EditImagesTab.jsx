@@ -55,6 +55,7 @@ export default function EditImagesTab({ setModalOpen, selectProduct, handleProdu
           setFile(info.file)
           SetShowPreview(true)
         }}
+        fileList={file?[file]:[]}  //ikinci defe wekil yukleyenden zaman ilk yuklediyim wekili prosmotrdan temizleyir
         showUploadList={showPreview}
         // fileList={file ? [file] : []}
         // onRemove={() => setFile(null)}

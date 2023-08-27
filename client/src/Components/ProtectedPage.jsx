@@ -17,7 +17,6 @@ export default function ProtectedPage({ children }) {
     const dispatch = useDispatch()
 
     const [notifications, setNotifications] = useState([])
-    const [readNotifications, setReadNotifications] = useState()
     const [showNotifications, setShowNotifications] = useState(false)
 
     const validateToken = async () => {
@@ -40,35 +39,27 @@ export default function ProtectedPage({ children }) {
         }
     }
     const getNotifications = async () => {
-        dispatch(SetLoader(true))
         try {
             const response = await GetAllNotifications()
             if (response.success) {
                 setNotifications(response.message)
-                dispatch(SetLoader(false))
             }
         } catch (error) {
             console.log(error)
             message.error(error.message)
-            dispatch(SetLoader(false))
-
         }
     }
-    const readAllNotifications=async()=>{
-        dispatch(SetLoader(true))
+    const readAllNotifications = async () => {
         try {
-            dispatch(SetLoader(false))
-            const response = await ReadAllNotifications()
+            const response = await ReadAllNotifications();
             if (response.success) {
-                setNotifications(response.message)
-                dispatch(SetLoader(false))
+                getNotifications();
             }
         } catch (error) {
-            console.log(error)
-            message.error(error.message)
-            dispatch(SetLoader(false))
-    }
-}
+            console.log(error);
+            message.error(error.message);
+        }
+    };
 
     useEffect(() => {
         if (localStorage.getItem("token")) {
@@ -135,8 +126,6 @@ export default function ProtectedPage({ children }) {
                     <Notifications
                         notifications={notifications}
                         setNotifications={setNotifications}
-                        readNotifications={readNotifications}
-                        setReadNotifications={setReadNotifications}
                         showNotifications={showNotifications}
                         setShowNotifications={setShowNotifications}
                     />

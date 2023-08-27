@@ -50,6 +50,7 @@ export default function EditProductsForm({ modalOpen, setModalOpen, selectProduc
         </div>
         <Tabs defaultActiveKey='1'
           activeKey={selectedTab}
+          key={items.key}
           onChange={(key)=>SetSelectedTab(key)}
 
           items={items} />

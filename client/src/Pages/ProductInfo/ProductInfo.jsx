@@ -10,14 +10,15 @@ import NewBidModalPage from '../../Components/NewBidModalPage/NewBidModalPage';
 
 export default function ProductInfo() {
     const userData = useSelector(state => state.users.user)
-    const[bidsData,setBidsData]=useState(null)
-    const [product, setProduct] = useState(null)
+    // const [bidsData, setBidsData] = useState(null)            //komentarii
+    const [product, setProduct] = useState(null)          //sam product
     const [selectedImage, setselectedImage] = useState(0)
-    const [showBidModal, setShowBidModal] = useState(false)
+    const [showBidModal, setShowBidModal] = useState(false)         //pokazat modalnoye okno
+
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
 
-    const {id} = useParams()
+    const { id } = useParams()
 
     const dispatch = useDispatch()
 
@@ -25,19 +26,20 @@ export default function ProductInfo() {
         try {
             dispatch(SetLoader(true))
             const response = await GetProductById(id)
-            
+
             if (response.success) {
                 setProduct(response.data)
-                
-                const bidsResponse=await GetAllBids({product:id})
+
+                const bidsResponse = await GetAllBids({ product: id })
                 if (bidsResponse.success) {
                     setProduct({
                         ...response.data,
                         bids: bidsResponse.data
                     });
-                    setBidsData(bidsResponse.data)
-                    }
+                    // setBidsData(bidsResponse.data);
+
                 }
+            }
         } catch (error) {
             console.log(error)
         }
@@ -53,9 +55,15 @@ export default function ProductInfo() {
 
     useEffect(() => {
         if (showBidModal) {
-            getData(); 
+            // document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+            getData();
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
     }, [showBidModal]);
 
     return (
@@ -73,7 +81,7 @@ export default function ProductInfo() {
                             {product.images.map((image, index) => {
                                 return (
                                     <img
-                                    key={index}
+                                        key={index}
                                         className={`w-20 h-20 object-cover rounded-md cursor-pointer" 
                                           ${selectedImage === index
                                                 ? "first:border-2 border-green-700 border-dashed p-2"
@@ -160,14 +168,15 @@ export default function ProductInfo() {
                             <div className="flex justify-between">
                                 <h1 className="text-2xl font-semibold text-orange-900">Bids</h1>
                                 <Button
-                                onClick={()=>setShowBidModal(!showBidModal)}
-                                disabled={userData._id===product.seller._id}
+                                    onClick={() => setShowBidModal(true)}
+                                    disabled={userData._id === product.seller._id}
                                 >
                                     New Bid
                                 </Button>
                             </div>
-                            {bidsData && product.showBidsOnProductPage && (product.bids.map((bid)=>{
-                                    return(
+                            {product?.showBidsOnProductPage && product.bids?.length > 0 && (
+                                product.bids.map((bid) => {
+                                    return (
                                         <div className="border border-gray-300 border-solid p-2 mb-2 rounded">
                                             <div className="flex justify-between text-gray-600">
                                                 <span>Name</span>
@@ -181,20 +190,20 @@ export default function ProductInfo() {
                                                 <span>Bid Place On</span>
                                                 <span>{moment(bid.buyer.createdAt).format("MMM D, YYYY hh:mm A")}</span>
                                             </div>
-                        
+
                                         </div>
                                     )
                                 })
 
-                                )}
+                            )}
                         </div>
 
                         {showBidModal &&
-                        <NewBidModalPage
-                        product={product}
-                        setShowBidModal={setShowBidModal}
-                        showBidModal={showBidModal}
-                        />}
+                            <NewBidModalPage
+                                product={product}
+                                setShowBidModal={setShowBidModal}
+                                showBidModal={showBidModal}
+                            />}
 
                     </div>
                 </div>

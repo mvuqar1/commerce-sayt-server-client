@@ -106,7 +106,7 @@ export default function UsersPage() {
         <>
             <div className='flex justify-end'>
             </div>
-            <Table className='mt-2' columns={columns} dataSource={users} />
+            <Table className='mt-2' columns={columns} dataSource={users.map(user => ({ ...user, key: user._id }))} />
         </>
     )
 }
