@@ -13,7 +13,7 @@ export default function ProductsBidsPage({ showBids, SetShowBids,selectProduct,s
     const getData = async () => {
         try {
             dispatch(SetLoader(true))
-            const response = await GetAllBids({seller:userData._id})
+            const response = await GetAllBids({ seller: userData._id, product: selectProduct._id })
             if (response.success) {
                 setBids(response.data)
             }
@@ -89,7 +89,7 @@ export default function ProductsBidsPage({ showBids, SetShowBids,selectProduct,s
             <h1 className='text-xl text-gray-500'>
                 Product name: {selectProduct.name}
             </h1>
-            <Table columns={columns} dataSource={bids}/>
+            <Table columns={columns} key={bids._id} dataSource={bids}/>
         </>
     )}
 </Modal>

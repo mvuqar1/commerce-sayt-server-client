@@ -18,7 +18,6 @@ export const AddProduct = async (payload) => {
 }
 export const GetProducts = async (seller) => {
     try {
-        console.log("Sending request with filters:", seller); // Добавьте эту строку
         const response = await fetch(`${fetchUrl}/api/products/get-products`,{
             method: "POST",
             headers: {
@@ -48,7 +47,6 @@ export const EditProduct = async (id, payload) => {
     }
 }
 export const DeleteProduct = async (id) => {
-    console.log(id)
     try {
         const request = await fetch(`${fetchUrl}/api/products/delete-product/${id}`, {
             method: "DELETE",
@@ -86,7 +84,6 @@ export const UploadImage = async (payload) => {
 }
 
 export const DeleteImage = async (id,payload) => {
-    console.log(id,payload)
     try {
         const response = await fetch(`${fetchUrl}/api/products/delete-image-from-product/${id}`, {
             method: "PUT",
@@ -146,7 +143,6 @@ export const GetAllBids = async (payload) => {
         const data = await response.json();
         return data
     } catch (error) {
-        console.log(error);
         return { success: false, message: error.message };
     }
 }

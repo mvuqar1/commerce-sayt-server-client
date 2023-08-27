@@ -26,7 +26,6 @@ router.post("/add-product", async (req, res) => {
 router.post("/get-products", async (req, res) => {
     try {
         const { seller, category=[], age=[],searchQuery,status} = req.body
-        console.log(searchQuery)
         let filters = {}
         if (seller) {
             filters.seller = seller

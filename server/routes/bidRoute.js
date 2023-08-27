@@ -35,7 +35,6 @@ router.post("/get-all-bids", async (req, res) => {
         .populate("product")
         .populate("seller")
         .populate("buyer")
-      
 
         res.send({
             success: true,
