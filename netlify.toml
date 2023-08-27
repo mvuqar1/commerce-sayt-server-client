@@ -1,9 +1,6 @@
 [build]
-  command = "cd client && npm install && npm run build"
+  command = "cd client && npm install && npm run build && npm install && node server.js"
   publish = "client/build"
-
-  # Добавьте настройки для сервера
-  command = "npm install && node server.js"
   functions = "server"
 
 [[redirects]]
