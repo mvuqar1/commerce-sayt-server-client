@@ -18,6 +18,7 @@ export const AddProduct = async (payload) => {
 }
 export const GetProducts = async (seller) => {
     try {
+        console.log("Sending request with filters:", seller); // Добавьте эту строку
         const response = await fetch(`${fetchUrl}/api/products/get-products`,{
             method: "POST",
             headers: {
@@ -61,7 +62,6 @@ export const DeleteProduct = async (id) => {
         return error.message
     }
 }
-
 export const GetProductById = async (id) => {
     try {
         const response = await fetch(`${fetchUrl}/api/products/get-product-by-id/${id}`)

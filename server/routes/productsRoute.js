@@ -21,13 +21,21 @@ router.post("/add-product", async (req, res) => {
         })
     }
 })
+
 //get all products
 router.post("/get-products", async (req, res) => {
     try {
-        const { seller, category=[], age=[],status} = req.body
+        const { seller, category=[], age=[],searchQuery,status} = req.body
+        console.log(searchQuery)
         let filters = {}
         if (seller) {
             filters.seller = seller
+        }
+        if (searchQuery !== "") {
+            filters.$or = [
+                { name: { $regex: searchQuery, $options: 'i' } },
+                { description: { $regex: searchQuery, $options: 'i' } }
+            ];
         }
         if (status) {
             filters.status = status
@@ -58,6 +66,7 @@ router.post("/get-products", async (req, res) => {
         })
     }
 })
+
 //edit  products
 router.put("/edit-product/:id", async (req, res) => {
     try {
@@ -73,6 +82,7 @@ router.put("/edit-product/:id", async (req, res) => {
         })
     }
 })
+
 //delete  products
 router.delete("/delete-product/:id", async (req, res) => {
     try {
@@ -88,6 +98,7 @@ router.delete("/delete-product/:id", async (req, res) => {
         })
     }
 })
+
 //get product by id
 router.get("/get-product-by-id/:id", async (req, res) => {
     try {
@@ -103,6 +114,7 @@ router.get("/get-product-by-id/:id", async (req, res) => {
         })
     }
 })
+
 
 //get image from pc
 const storage = multer.diskStorage({

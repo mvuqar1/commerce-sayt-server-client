@@ -83,7 +83,7 @@ export default function ProtectedPage({ children }) {
                 <div>
                     <div className='flex items-center justify-between p-5 bg-primary text-2xl  uppercase'>
                         <h1 className='text-white' onClick={() => navigate("/")}>
-                            shey mp
+                            Commerce store 
                         </h1>
                         <div className='bg-white rounded py-2 px-2 flex items-center gap-1'>
                             <UserSwitchOutlined />
