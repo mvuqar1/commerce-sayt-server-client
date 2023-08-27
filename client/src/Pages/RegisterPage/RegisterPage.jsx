@@ -48,7 +48,7 @@ export default function RegisterPage() {
             <Input placeholder='Name' />
           </Form.Item>
           <Form.Item label="Email" name="email" rules={rules}>
-            <Input placeholder='Email' />
+            <Input placeholder='Email' type='email' />
           </Form.Item>
           <Form.Item label="Password" name="password" rules={rules}>
             <Input type='password' placeholder='Password' />
