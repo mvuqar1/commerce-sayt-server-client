@@ -1,11 +1,11 @@
 [build]
-publish = "build"
-command = "npm run build"
+  command = "cd client && npm install && npm run build"
+  publish = "client/build"
 
-[dev]
-command = "cd server && npm install && node --watch server.js"
-functions = "client/build/functions"
+[[redirects]]
+  from = "/api/*"
+  to = "http://localhost:3001/:splat"
+  status = 200
 
-[build]
-publish = "client/build"
-command = "cd client && npm install && npm run build"
+[build.environment]
+  NODE_ENV = "production"
