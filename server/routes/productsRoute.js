@@ -12,7 +12,7 @@ router.post("/add-product", async (req, res) => {
         await newProduct.save()
         res.send({
             success: true,
-            message: "Product added succesfully"
+            message: "Product added successfully. Please await confirmation from the Administrator."
         })
     } catch (error) {
         res.send({
