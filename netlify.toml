@@ -1,16 +1,17 @@
-[build]
-  command = "cd client && npm install && npm run build && npm install && node server.js"
-  publish = "client/build"
-  functions = "server"
 
-[[redirects]]
-  from = "/api/*"
-  to = "http://localhost:3001/:splat"
-  status = 200
+  [dev]
+command = "cd server && npm install && npm run start"
+functions = "client/build/functions"
+
+[build]
+publish = "client/build"
+command = "cd client && npm install --legacy-peer-deps && npm run build"
 
 [build.environment]
-  NODE_ENV = "production"
+NODE_ENV = "production"
 
-[dev]
-  command = "cd server && npm install && node --watch server.js"
-  functions = "server"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
