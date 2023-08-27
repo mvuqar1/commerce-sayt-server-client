@@ -31,7 +31,7 @@ router.post("/get-products", async (req, res) => {
         if (seller) {
             filters.seller = seller
         }
-        if (searchQuery !== "") {
+        if (searchQuery && searchQuery !== "") {
             filters.$or = [
                 { name: { $regex: searchQuery, $options: 'i' } },
                 { description: { $regex: searchQuery, $options: 'i' } }
