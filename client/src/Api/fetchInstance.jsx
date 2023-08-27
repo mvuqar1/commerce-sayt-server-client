@@ -1,5 +1,5 @@
 // export const fetchUrl = "http://localhost:5001"
-export const fetchUrl = "https://your-server.netlify.app";
+export const fetchUrl = "https://main--commerce-sayt-server-client.netlify.app";
 
 export const fetchInstance = () => {
   const token = localStorage.getItem('token');
