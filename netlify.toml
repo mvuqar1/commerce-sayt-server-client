@@ -9,3 +9,11 @@
 
 [build.environment]
   NODE_ENV = "production"
+
+[[build]]
+  command = "npm install && node server.js"  # Команда для запуска сервера
+  functions = "server"  # Папка с серверными функциями
+
+[dev]
+  command = "cd server && npm install && node --watch server.js"
+  functions = "server"
